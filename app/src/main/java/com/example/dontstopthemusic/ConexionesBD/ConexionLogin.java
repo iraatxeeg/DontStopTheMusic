@@ -26,10 +26,8 @@ import java.net.URL;
 
 public class ConexionLogin extends Worker {
 
-    Context context;
     public ConexionLogin(@NonNull Context pcontext, @NonNull WorkerParameters workerParams) {
         super(pcontext, workerParams);
-        context = pcontext;
     }
 
     @NonNull
@@ -66,7 +64,6 @@ public class ConexionLogin extends Worker {
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
-                    Log.i("hola", line + "linea");
                 }
                 inputStream.close();
 

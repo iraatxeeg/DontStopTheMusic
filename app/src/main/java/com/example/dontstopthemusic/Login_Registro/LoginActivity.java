@@ -2,6 +2,7 @@ package com.example.dontstopthemusic.Login_Registro;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dontstopthemusic.ConexionesBD.ConexionLogin;
+import com.example.dontstopthemusic.Dialogs.ClaseDialogPasswordError;
 import com.example.dontstopthemusic.Main.MainActivity;
 import com.example.dontstopthemusic.PantallaPrincipal.PantallaPrincipalActivity;
 import com.example.dontstopthemusic.R;
@@ -59,17 +61,15 @@ public class LoginActivity extends AppCompatActivity {
                             if (workInfo != null && workInfo.getState().isFinished()) {
                                 if(workInfo.getOutputData().getString("resultado").equals("true")) {
                                     // Login correcto
-                                    Log.i("hola", workInfo.getOutputData().getString("resultado") + "true");
                                     Intent iPrincipal = new Intent(getBaseContext(), PantallaPrincipalActivity.class);
                                     startActivity(iPrincipal);
                                     finish();
 
 
-                                } else { // Mostrar Dialog de error
-                                    Log.i("hola", workInfo.getOutputData().getString("resultado") + "false");
-                                    Intent iPrincipal1 = new Intent(getBaseContext(), MainActivity.class);
-                                    startActivity(iPrincipal1);
-                                    finish();
+                                } else { // Incorrecta -> Mostrar Dialog de error
+                                    DialogFragment dialogoAlerta = new ClaseDialogPasswordError();
+                                    dialogoAlerta.show(getSupportFragmentManager(), "PasswordErrorRegistro");
+
 
                                 }
                             }

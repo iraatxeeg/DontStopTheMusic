@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".PantallaPrincipal.PantallaPrincipalActivity"></activity>
+        <activity android:name=".Login_Registro.RegistroActivity"></activity>
+        <activity android:name=".PantallaPrincipal.PantallaPrincipalActivity" />
         <activity android:name=".Login_Registro.LoginActivity" />
         <activity android:name=".Main.MainActivity">
             <intent-filter>

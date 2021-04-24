@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dontstopthemusic.ConexionesBD.ConexionLogin;
+import com.example.dontstopthemusic.Dialogs.ClaseDialogLoginError;
 import com.example.dontstopthemusic.Dialogs.ClaseDialogPasswordError;
 import com.example.dontstopthemusic.Main.MainActivity;
 import com.example.dontstopthemusic.PantallaPrincipal.PantallaPrincipalActivity;
@@ -33,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setSupportActionBar(findViewById(R.id.labarraLogin));
-        txtUsuario = findViewById(R.id.txtLoginUsuario);
-        txtContraseña = findViewById(R.id.txtLoginContraseña);
+        txtUsuario = findViewById(R.id.editTextUsuarioLogin);
+        txtContraseña = findViewById(R.id.editTextContraseñaLogin);
 
     }
 
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onChanged(WorkInfo workInfo) {
                             if (workInfo != null && workInfo.getState().isFinished()) {
+                                Log.i("hola", "result"+workInfo.getOutputData().getString("resultado"));
                                 if(workInfo.getOutputData().getString("resultado").equals("true")) {
                                     // Login correcto
                                     Intent iPrincipal = new Intent(getBaseContext(), PantallaPrincipalActivity.class);
@@ -67,8 +69,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                 } else { // Incorrecta -> Mostrar Dialog de error
-                                    DialogFragment dialogoAlerta = new ClaseDialogPasswordError();
-                                    dialogoAlerta.show(getSupportFragmentManager(), "PasswordErrorRegistro");
+                                    DialogFragment dialogoAlerta = new ClaseDialogLoginError();
+                                    dialogoAlerta.show(getSupportFragmentManager(), "LoginError");
 
 
                                 }
@@ -76,7 +78,11 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
             WorkManager.getInstance(this).enqueue(otwr);
-        }
+        } else { // Opción cancelar -> volver al Main
+        Intent iMain = new Intent(this, MainActivity.class);
+        startActivity(iMain);
+        finish();
+    }
         return super.onOptionsItemSelected(item);
     }
 }

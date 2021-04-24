@@ -7,6 +7,13 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import org.json.simple.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -31,5 +38,37 @@ public class ConexionRegistro extends Worker {
             urlConnection = (HttpURLConnection) destino.openConnection();
             urlConnection.setConnectTimeout(5000);
             urlConnection.setReadTimeout(5000);
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoOutput(true);
+            JSONObject parametrosJSON = new JSONObject();
+            parametrosJSON.put("usuario", txtUsuario);
+            parametrosJSON.put("contraseña", txtContraseña);
+
+            urlConnection.setRequestProperty("Content-Type","application/json");
+            PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
+            out.print(parametrosJSON.toJSONString());
+            out.close();
+
+            int statusCode = urlConnection.getResponseCode();
+
+            if (statusCode == 200) {
+                BufferedInputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                inputStream.close();
+
+                resultados = new Data.Builder()
+                        .putString("resultado", result)
+                        .build();
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Result.success(resultados);
     }
 }

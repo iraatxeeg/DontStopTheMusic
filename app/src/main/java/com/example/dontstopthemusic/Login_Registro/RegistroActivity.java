@@ -68,15 +68,11 @@ public class RegistroActivity extends AppCompatActivity {
                             @Override
                             public void onChanged(WorkInfo workInfo) {
                                 if (workInfo != null && workInfo.getState().isFinished()) {
-                                    if (workInfo.getOutputData().getString("resultado").equals("true")) {
+                                    if (workInfo.getOutputData().getString("resultado") != null) {
+
+                                    } else { // Mostrar Dialog de error
 
                                     }
-                                } else { // Mostrar Dialog de error
-                                    Log.i("hola", workInfo.getOutputData().getString("resultado") + "false");
-                                    Intent iPrincipal1 = new Intent(getBaseContext(), MainActivity.class);
-                                    startActivity(iPrincipal1);
-                                    finish();
-
                                 }
                             }
                         });

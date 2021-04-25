@@ -30,6 +30,8 @@ public class ConexionRegistro1 extends Worker {
     public Result doWork() {
         String txtUsuario = getInputData().getString("usuario");
         String txtContraseña = getInputData().getString("contraseña");
+        String foto = getInputData().getString("foto");
+
 
         String direccion = "http://ec2-54-167-31-169.compute-1.amazonaws.com/igonzalez274/WEB/registro.php";
         String result = "";
@@ -45,6 +47,7 @@ public class ConexionRegistro1 extends Worker {
             JSONObject parametrosJSON = new JSONObject();
             parametrosJSON.put("usuario", txtUsuario);
             parametrosJSON.put("contraseña",txtContraseña);
+            parametrosJSON.put("foto", foto);
             urlConnection.setRequestProperty("Content-Type","application/json");
             PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
             out.print(parametrosJSON.toJSONString());

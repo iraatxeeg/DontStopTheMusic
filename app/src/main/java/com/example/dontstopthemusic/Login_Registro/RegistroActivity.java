@@ -81,7 +81,8 @@ public class RegistroActivity extends AppCompatActivity {
                                         finish();
                                     }
                                     else {
-                                        Log.i("hola", "onChanged: ya existe");
+                                        DialogFragment dialogoAlerta = new ClaseDialogUsuarioExiste();
+                                        dialogoAlerta.show(getSupportFragmentManager(), "UsuarioExiste");
                                     }
                                 }
                             }

@@ -83,7 +83,9 @@ public class Registro1Activity extends AppCompatActivity {
             // comprobar si ya existe
 
         } else { // atrás
-
+            Intent iRegistro = new Intent(getBaseContext(),RegistroActivity.class):
+            startActivity(iRegistro);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

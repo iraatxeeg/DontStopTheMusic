@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#BCFFDAC5"
-    tools:context=".Main.MainActivity">
+    tools:context=".Login_Registro.Registro1Activity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/labarraMain"
+        android:id="@+id/labarraRegistro1"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#FFC59E"
@@ -21,47 +20,58 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/btnSeleccionar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFC59E"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Seleccionar imagen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRegistro1Titulo"
+        app:layout_constraintVertical_bias="0.218" />
+
+    <Button
+        android:id="@+id/btnSacar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFC59E"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Sacar Foto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnSeleccionar"
+        app:layout_constraintStart_toStartOf="@+id/btnSeleccionar"
+        app:layout_constraintTop_toBottomOf="@+id/btnSeleccionar"
+        app:layout_constraintVertical_bias="0.197" />
+
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="343dp"
-        android:layout_height="370dp"
-        android:src="@drawable/logo"
+        android:id="@+id/fotoPerfilRegistro"
+        android:layout_width="216dp"
+        android:layout_height="301dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labarraMain"
-        app:layout_constraintVertical_bias="0.195"
-        tools:srcCompat="@drawable/logo" />
+        app:layout_constraintTop_toBottomOf="@+id/labarraRegistro1"
+        app:layout_constraintVertical_bias="0.354"
+        tools:srcCompat="@tools:sample/avatars" />
 
-    <Button
-        android:id="@+id/btnEntrar"
+    <TextView
+        android:id="@+id/txtRegistro1Titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#FFC59E"
         android:fontFamily="@font/montserrat_bold"
-        android:text="ENTRAR"
+        android:text="Elige una foto de perfil"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.867"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.253" />
-
-    <Button
-        android:id="@+id/btnRegistro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FFC59E"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="REGISTRARME"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEntrar"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintTop_toBottomOf="@+id/labarraRegistro1"
+        app:layout_constraintVertical_bias="0.117" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

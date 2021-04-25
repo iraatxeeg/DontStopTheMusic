@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -31,6 +32,14 @@ import com.example.dontstopthemusic.ConexionesBD.ConexionRegistro;
 import com.example.dontstopthemusic.ConexionesBD.ConexionRegistro1;
 import com.example.dontstopthemusic.Main.MainActivity;
 import com.example.dontstopthemusic.R;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Registro1Activity extends AppCompatActivity {
 
@@ -52,7 +61,9 @@ public class Registro1Activity extends AppCompatActivity {
 
         Button btnSeleccionar = findViewById(R.id.btnSeleccionar);
         Button btnSacar = findViewById(R.id.btnSacar);
-        img = findViewById(R.id.fotoPerfilRegistro);
+        img = (ImageView) findViewById(R.id.fotoPerfilRegistro);
+        img.setImageResource(R.drawable.fondo);
+
 
         btnSeleccionar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,16 +77,15 @@ public class Registro1Activity extends AppCompatActivity {
         btnSacar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.CAMERA)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//
-//                } else {
-                    Intent elIntentFoto= new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(elIntentFoto, 456);
-//                }
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, 456);
+                }
             }
         });
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -86,7 +96,22 @@ public class Registro1Activity extends AppCompatActivity {
         } if (requestCode == 456 && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap laminiatura = (Bitmap) extras.get("data");
-            img.setImageBitmap(laminiatura);
+            File elDirectorio = getFilesDir();
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            String nombrefichero = "IMG_" + timeStamp + "_";
+            File imagenFich = new File(elDirectorio, nombrefichero + ".jpg");
+            OutputStream os;
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            laminiatura.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            try {
+                img.setImageBitmap(laminiatura);
+                os = new FileOutputStream(imagenFich);
+                laminiatura.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                os.flush();
+                os.close();
+            } catch (Exception e) {
+
+            }
         }
 
     }
@@ -102,7 +127,7 @@ public class Registro1Activity extends AppCompatActivity {
         int id=item.getItemId();
         if (id == R.id.opcionGuardar) {
             Data datos = new Data.Builder().putString("usuario", usuario)
-                    .putString("constraseña",contraseña).build();
+                    .putString("constraseña",contraseña).putString("foto", img.toString()).build();
             OneTimeWorkRequest otwrRegistro1 = new OneTimeWorkRequest.Builder(ConexionRegistro1.class)
                     .setInputData(datos).build();
             WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwrRegistro1.getId())
@@ -110,7 +135,7 @@ public class Registro1Activity extends AppCompatActivity {
                         @Override
                         public void onChanged(WorkInfo workInfo) {
                             if (workInfo != null && workInfo.getState().isFinished()) {
-                                if (workInfo.getOutputData().getString("resultado").equals("creado")) {
+                                if (workInfo.getOutputData().getString("resultado").equals("true")) {
                                     Intent iLogin = new Intent(getBaseContext(), LoginActivity.class);
                                     iLogin.putExtra("registro", "true");
                                     startActivity(iLogin);

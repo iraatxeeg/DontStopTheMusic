@@ -70,6 +70,7 @@ public class ConexionLogin extends Worker {
                 resultados = new Data.Builder()
                         .putString("resultado", result)
                         .build();
+                Log.i("hola", "result" + result);
 
             }
 

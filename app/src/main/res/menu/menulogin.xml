@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/opcionLoginCancel"
+        android:title="Atrás"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/opcionEntrar"
         android:title="Entrar"
         app:showAsAction="ifRoom" />
+
 </menu>

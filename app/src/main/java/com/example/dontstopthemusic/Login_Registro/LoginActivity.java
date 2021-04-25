@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dontstopthemusic.ConexionesBD.ConexionLogin;
+import com.example.dontstopthemusic.Dialogs.ClaseDialogCamposSinRellenar;
 import com.example.dontstopthemusic.Dialogs.ClaseDialogLoginError;
 import com.example.dontstopthemusic.Dialogs.ClaseDialogPasswordError;
 import com.example.dontstopthemusic.Main.MainActivity;
@@ -37,6 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         txtUsuario = findViewById(R.id.editTextUsuarioLogin);
         txtContraseña = findViewById(R.id.editTextContraseñaLogin);
 
+        // Si vengo del registro, hago toast
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            if (extras.getString("registro").equals("true")) {
+                String text = "¡Registro realizado con éxito!";
+                Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        }
+
     }
 
     @Override
@@ -50,33 +62,38 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.opcionEntrar) {
+            if (txtUsuario.getText().toString().equals("") || txtContraseña.getText().toString().equals("")) {
+                DialogFragment dialogoAlerta = new ClaseDialogCamposSinRellenar();
+                dialogoAlerta.show(getSupportFragmentManager(), "CamposSinRellenar");
+            } else {
+                Data datos = new Data.Builder().putString("usuario", txtUsuario.getText().toString())
+                        .putString("contraseña", txtContraseña.getText().toString()).build();
+                OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionLogin.class)
+                        .setInputData(datos).build();
+                WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                        .observe(this, new Observer<WorkInfo>() {
+                            @Override
+                            public void onChanged(WorkInfo workInfo) {
+                                if (workInfo != null && workInfo.getState().isFinished()) {
+                                    if (workInfo.getOutputData().getString("resultado").equals("true")) {
+                                        // Login correcto
+                                        Intent iPrincipal = new Intent(getBaseContext(), PantallaPrincipalActivity.class);
+                                        iPrincipal.putExtra("usuario", txtUsuario.getText().toString());
+                                        startActivity(iPrincipal);
+                                        finish();
 
-            Data datos = new Data.Builder().putString("usuario", txtUsuario.getText().toString())
-                    .putString("contraseña", txtContraseña.getText().toString()).build();
-            OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionLogin.class)
-                    .setInputData(datos).build();
-            WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
-                    .observe(this, new Observer<WorkInfo>() {
-                        @Override
-                        public void onChanged(WorkInfo workInfo) {
-                            if (workInfo != null && workInfo.getState().isFinished()) {
-                                if(workInfo.getOutputData().getString("resultado").equals("true")) {
-                                    // Login correcto
-                                    Intent iPrincipal = new Intent(getBaseContext(), PantallaPrincipalActivity.class);
-                                    startActivity(iPrincipal);
-                                    finish();
+
+                                    } else { // Incorrecta -> Mostrar Dialog de error
+                                        DialogFragment dialogoAlerta = new ClaseDialogLoginError();
+                                        dialogoAlerta.show(getSupportFragmentManager(), "LoginError");
 
 
-                                } else { // Incorrecta -> Mostrar Dialog de error
-                                    DialogFragment dialogoAlerta = new ClaseDialogLoginError();
-                                    dialogoAlerta.show(getSupportFragmentManager(), "LoginError");
-
-
+                                    }
                                 }
                             }
-                        }
-                    });
-            WorkManager.getInstance(this).enqueue(otwr);
+                        });
+                WorkManager.getInstance(this).enqueue(otwr);
+            }
         } else { // Opción cancelar -> volver al Main
         Intent iMain = new Intent(this, MainActivity.class);
         startActivity(iMain);

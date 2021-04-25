@@ -63,9 +63,30 @@ public class RegistroActivity extends AppCompatActivity {
                 DialogFragment dialogoAlerta = new ClaseDialogPasswordError();
                 dialogoAlerta.show(getSupportFragmentManager(), "PasswordError");
             } else { // Pasar a la siguiente activity -> Foto
-                Intent iSiguiente = new Intent(getBaseContext(), Registro1Activity.class);
-                startActivity(iSiguiente);
-                finish();
+                // comprobar si ya existe
+                Data datos = new Data.Builder().putString("usuario", txtUsuario.getText().toString()).build();
+                OneTimeWorkRequest otwrRegistro = new OneTimeWorkRequest.Builder(ConexionRegistro.class)
+                        .setInputData(datos).build();
+                WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwrRegistro.getId())
+                        .observe(this, new Observer<WorkInfo>() {
+                            @Override
+                            public void onChanged(WorkInfo workInfo) {
+                                if (workInfo != null && workInfo.getState().isFinished()) {
+                                    if(workInfo.getOutputData().getString("resultado").equals("true")) {
+                                        // Usuario no existe, se puede crear
+                                        Intent iSiguiente = new Intent(getBaseContext(), Registro1Activity.class);
+                                        iSiguiente.putExtra("usuario", txtUsuario.getText().toString());
+                                        iSiguiente.putExtra("contraseña", txtContraseña.getText().toString());
+                                        startActivity(iSiguiente);
+                                        finish();
+                                    }
+                                    else {
+                                        Log.i("hola", "onChanged: ya existe");
+                                    }
+                                }
+                            }
+                        });
+                WorkManager.getInstance(this).enqueue(otwrRegistro);
             }
         } else { // Opción cancelar -> volver al Main
             Intent iMain = new Intent(this, MainActivity.class);

@@ -28,7 +28,7 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            usuario = extras.getString("Usuario");
+            usuario = extras.getString("usuario");
         }
         String text = "Hola " + usuario;
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);

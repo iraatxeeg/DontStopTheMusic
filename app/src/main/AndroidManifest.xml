@@ -3,6 +3,10 @@
     package="com.example.dontstopthemusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera2.full" android:required="true"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Login_Registro.RegistroActivity"></activity>
+        <activity android:name=".Login_Registro.Registro1Activity"></activity>
+        <activity android:name=".Login_Registro.RegistroActivity" />
         <activity android:name=".PantallaPrincipal.PantallaPrincipalActivity" />
         <activity android:name=".Login_Registro.LoginActivity" />
         <activity android:name=".Main.MainActivity">

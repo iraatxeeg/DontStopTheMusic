@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dontstopthemusic.Login_Registro.LoginActivity;
+import com.example.dontstopthemusic.Login_Registro.RegistroActivity;
 import com.example.dontstopthemusic.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +27,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent iLogin = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(iLogin);
+                finish();
+            }
+        });
+
+        // Botón para ir a REGISTRO
+        Button btnRegistro = findViewById(R.id.btnRegistro);
+        btnRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iRegistro = new Intent(getBaseContext(), RegistroActivity.class);
+                startActivity(iRegistro);
                 finish();
             }
         });

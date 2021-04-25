@@ -12,13 +12,17 @@ import androidx.work.WorkManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dontstopthemusic.ConexionesBD.ConexionRegistro;
 import com.example.dontstopthemusic.Dialogs.ClaseDialogCamposSinRellenar;
+import com.example.dontstopthemusic.Dialogs.ClaseDialogLoginError;
 import com.example.dontstopthemusic.Dialogs.ClaseDialogPasswordError;
+import com.example.dontstopthemusic.Dialogs.ClaseDialogUsuarioExiste;
 import com.example.dontstopthemusic.Main.MainActivity;
 import com.example.dontstopthemusic.R;
 
@@ -33,9 +37,9 @@ public class RegistroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         setSupportActionBar(findViewById(R.id.labarraRegistro));
-        txtUsuario = findViewById(R.id.txtRegistroUsuario);
-        txtContraseña = findViewById(R.id.txtRegistroContraseña);
-        txtContraseña1 = findViewById(R.id.txtRegistroContraseña1);
+        txtUsuario = findViewById(R.id.editTextUsuarioRegistro);
+        txtContraseña = findViewById(R.id.editTextContraseñaRegistro);
+        txtContraseña1 = findViewById(R.id.editTextContraseñaRegistro1);
     }
 
     @Override
@@ -54,28 +58,14 @@ public class RegistroActivity extends AppCompatActivity {
                     txtContraseña1.getText().toString().equals("")) {
                 DialogFragment dialogoAlerta = new ClaseDialogCamposSinRellenar();
                 dialogoAlerta.show(getSupportFragmentManager(), "CamposSinRellenar");
-            } else if (txtContraseña.getText().toString().equals(txtContraseña1.getText().toString())) {
+            } else if (!txtContraseña.getText().toString().equals(txtContraseña1.getText().toString())) {
                 // Todos los campos rellenados pero las contraseñas no coinciden
                 DialogFragment dialogoAlerta = new ClaseDialogPasswordError();
                 dialogoAlerta.show(getSupportFragmentManager(), "PasswordError");
-            } else {
-                Data datos = new Data.Builder().putString("usuario", txtUsuario.getText().toString())
-                        .putString("contraseña", txtContraseña.getText().toString()).build();
-                OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionRegistro.class)
-                        .setInputData(datos).build();
-                WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
-                        .observe(this, new Observer<WorkInfo>() {
-                            @Override
-                            public void onChanged(WorkInfo workInfo) {
-                                if (workInfo != null && workInfo.getState().isFinished()) {
-                                    if (workInfo.getOutputData().getString("resultado") != null) {
-
-                                    } else { // Mostrar Dialog de error
-
-                                    }
-                                }
-                            }
-                        });
+            } else { // Pasar a la siguiente activity -> Foto
+                Intent iSiguiente = new Intent(getBaseContext(), Registro1Activity.class);
+                startActivity(iSiguiente);
+                finish();
             }
         } else { // Opción cancelar -> volver al Main
             Intent iMain = new Intent(this, MainActivity.class);

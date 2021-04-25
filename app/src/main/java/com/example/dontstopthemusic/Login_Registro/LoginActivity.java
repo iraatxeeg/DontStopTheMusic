@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onChanged(WorkInfo workInfo) {
                             if (workInfo != null && workInfo.getState().isFinished()) {
-                                Log.i("hola", "result"+workInfo.getOutputData().getString("resultado"));
                                 if(workInfo.getOutputData().getString("resultado").equals("true")) {
                                     // Login correcto
                                     Intent iPrincipal = new Intent(getBaseContext(), PantallaPrincipalActivity.class);

@@ -12,8 +12,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,25 +20,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PantallaPrincipal.ActivityPerfil"></activity>
+        <activity android:name=".PantallaPrincipal.ActivityMusica"
+            android:parentActivityName=".PantallaPrincipal.ActivityArtista"/>
+        <activity android:name=".PantallaPrincipal.ActivityPerfil"
+            android:parentActivityName=".PantallaPrincipal.PantallaPrincipalActivity"/>
         <activity
             android:name=".Login_Registro.RegistroFotoActivity"
             android:parentActivityName=".Login_Registro.RegistroActivity" />
         <activity
             android:name=".Login_Registro.RegistroActivity"
             android:parentActivityName=".Main.MainActivity" />
-        <activity android:name=".PantallaPrincipal.PantallaPrincipalActivity" >
-
-        </activity>
+        <activity android:name=".PantallaPrincipal.PantallaPrincipalActivity"></activity>
         <activity
             android:name=".Login_Registro.LoginActivity"
-            android:parentActivityName=".Main.MainActivity" >
+            android:parentActivityName=".Main.MainActivity">
             <intent-filter>
                 <action android:name="AVISO" />
-                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".PantallaPrincipal.ActivityArtista" />
+        <activity android:name=".PantallaPrincipal.ActivityArtista"
+            android:parentActivityName=".PantallaPrincipal.PantallaPrincipalActivity"/>
         <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,6 +58,17 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <service android:name=".Reproductores.ReproducirFlicker"/>
+        <service android:name=".Reproductores.ReproducirHeartbreak"/>
+        <service android:name=".Reproductores.ReproducirRare"/>
+        <service android:name=".Reproductores.ReproducirBaila"/>
+        <service android:name=".Reproductores.ReproducirStitches"/>
+        <service android:name=".Reproductores.ReproducirLookUp"/>
+        <service android:name=".Reproductores.ReproducirBury"/>
+        <service android:name=".Reproductores.ReproducirTherefore"/>
+        <service android:name=".Reproductores.ReproducirDontForget"/>
+        <service android:name=".Reproductores.ReproducirTellMeYou"/>
 
     </application>
 

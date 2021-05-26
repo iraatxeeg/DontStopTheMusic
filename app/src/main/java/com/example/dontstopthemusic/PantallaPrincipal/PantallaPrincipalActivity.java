@@ -34,11 +34,12 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             username = extras.getString("username");
+            String text = "Hola " + username + "!";
+            Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
+            toast.show();
         }
-        String text = "Hola " + username + "!";
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
-        toast.show();
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -57,11 +58,12 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent idArtista = new Intent(getBaseContext(), ActivityArtista.class);
                 idArtista.putExtra("idArtista",String.valueOf(ids[laLista.getChildAdapterPosition(v)]));
+                idArtista.putExtra("username", username);
                 startActivity(idArtista);
             }
         });
         laLista.setAdapter(elAdaptador);
-        LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
         laLista.setLayoutManager(layout);
 
 

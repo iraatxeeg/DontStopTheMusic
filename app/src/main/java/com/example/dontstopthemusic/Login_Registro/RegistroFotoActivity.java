@@ -303,7 +303,6 @@ public class RegistroFotoActivity extends AppCompatActivity {
                 .putString("token",token)
                 .build();
 
-
         OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionToken.class)
                 .setInputData(datos).build();
 

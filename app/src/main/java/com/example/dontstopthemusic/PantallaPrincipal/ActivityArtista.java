@@ -3,6 +3,7 @@ package com.example.dontstopthemusic.PantallaPrincipal;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -11,6 +12,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,22 +40,25 @@ public class ActivityArtista extends AppCompatActivity {
 
     // Actividad para mostrar la información de cada artista
 
-    String idArtista;
+    String idArtista = "";
     TextView txtNombre;
     TextView txtFechaNac;
     TextView txtLugarNac;
     ImageView imagen;
+    ImageButton btnMusica;
+    String username = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artista);
+        setSupportActionBar(findViewById(R.id.labarrainfoartitsta));
 
 
         Bundle extras = getIntent().getExtras();
-        idArtista = "";
         if (extras != null) {
             idArtista = extras.getString("idArtista");
+            username = extras.getString("username");
         }
 
 
@@ -95,6 +102,25 @@ public class ActivityArtista extends AppCompatActivity {
 
         elManager.notify(1, elBuilder.build());
 
+
+        // Al pulsar en el botón Play nos llevará a otra interfaz
+        // donde veremos las canciones del artista
+        btnMusica = findViewById(R.id.imgBtnMusica);
+        btnMusica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iMusica = new Intent(getBaseContext(), ActivityMusica.class);
+                iMusica.putExtra("username", username);
+                iMusica.putExtra("idArtista", idArtista);
+                startActivity(iMusica);
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        return true;
     }
 
     private void cargarFoto() {

@@ -23,6 +23,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class PantallaPrincipalActivity extends AppCompatActivity {
 
+    // Pantalla principal en el que aparecen los artistas
+
     String username = "";
 
     @Override

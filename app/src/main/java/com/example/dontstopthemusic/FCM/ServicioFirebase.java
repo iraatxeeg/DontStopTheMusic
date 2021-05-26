@@ -13,6 +13,8 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class ServicioFirebase extends FirebaseMessagingService {
 
+    // Clase para recoger los mensajes de FCM
+
     public ServicioFirebase() { }
 
     public void onMessageReceived(RemoteMessage remoteMessage) {

@@ -26,6 +26,8 @@ import java.net.URL;
 
 public class ConexionLogin extends Worker {
 
+    // Tarea para realizar el login de un usuario
+
     public ConexionLogin(@NonNull Context pcontext, @NonNull WorkerParameters workerParams) {
         super(pcontext, workerParams);
     }

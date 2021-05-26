@@ -33,6 +33,7 @@ import com.example.dontstopthemusic.Reproductores.ReproducirTherefore;
 
 public class ActivityMusica extends AppCompatActivity {
 
+    // Actividad para mostrar las canciones de un artista
     String idArtista = "";
     String username = "";
     String[] canciones = new String[2];

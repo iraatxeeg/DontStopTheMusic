@@ -20,7 +20,7 @@ import java.net.URL;
 
 public class ConexionCambiarContraseña extends Worker {
 
-    // Tarea para cambiar la contraseña del usuario en la base de datos con el php cambiarPasswordE3.php
+    // Tarea para cambiar la contraseña del usuario en la base de datos con el php cambiarPassword.php
 
     public ConexionCambiarContraseña(@NonNull Context pcontext, @NonNull WorkerParameters workerParams) {
         super(pcontext, workerParams);

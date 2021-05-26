@@ -20,6 +20,8 @@ import java.net.URL;
 
 public class ConexionToken extends Worker {
 
+    // Tarea para añadir el token a un usuario determinado en la base de datos
+
     public ConexionToken(@NonNull Context pcontext, @NonNull WorkerParameters workerParams) {
         super(pcontext, workerParams);
     }

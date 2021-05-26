@@ -50,6 +50,8 @@ import java.util.Locale;
 
 public class RegistroFotoActivity extends AppCompatActivity {
 
+    // Actividad en la que se añade la foto y se realiza el registro
+    // También se recoge el token par FCM
     ImageView img;
     String username;
     String password;

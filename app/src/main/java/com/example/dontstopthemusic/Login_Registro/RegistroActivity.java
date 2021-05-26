@@ -23,6 +23,7 @@ import com.example.dontstopthemusic.R;
 
 public class RegistroActivity extends AppCompatActivity {
 
+    // Actividad para que el usuario introduzca username-password para registrarse
     TextView txtUsername;
     TextView txtPassword;
     TextView txtPassword1;

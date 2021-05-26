@@ -23,6 +23,7 @@ import com.example.dontstopthemusic.R;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // Actividad para logearse con username-password
     TextView txtUsuario;
     TextView txtPassword;
     @Override

@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.example.dontstopthemusic.Login_Registro.LoginActivity;
 import com.example.dontstopthemusic.Login_Registro.RegistroActivity;
 import com.example.dontstopthemusic.R;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent iLogin = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(iLogin);
-                finish();
             }
         });
 
@@ -38,10 +38,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent iRegistro = new Intent(getBaseContext(), RegistroActivity.class);
                 startActivity(iRegistro);
-                finish();
             }
         });
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

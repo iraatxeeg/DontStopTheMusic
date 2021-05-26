@@ -1,14 +1,16 @@
 package com.example.dontstopthemusic.ConexionesBD;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Data;
+import androidx.work.ListenableWorker;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -18,11 +20,11 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ConexionRegistro extends Worker {
+public class ConexionRecogerDatosUser extends Worker {
 
-    // Tarea para realizar el insert de un Usuario en la base de datos con el php registro.php
+    // Tarea para recoger los datos de un Usuario en la base de datos con el php recogerDatosUserE3.php
 
-    public ConexionRegistro(@NonNull Context pcontext, @NonNull WorkerParameters workerParams) {
+    public ConexionRecogerDatosUser(@NonNull Context pcontext, @NonNull WorkerParameters workerParams) {
         super(pcontext, workerParams);
     }
 
@@ -30,9 +32,8 @@ public class ConexionRegistro extends Worker {
     @Override
     public Result doWork() {
         String username = getInputData().getString("username");
-        String password = getInputData().getString("password");
 
-        String direccion = "http://ec2-54-242-79-204.compute-1.amazonaws.com/igonzalez274/WEB/Entrega2/registro.php";
+        String direccion = "http://ec2-54-242-79-204.compute-1.amazonaws.com/igonzalez274/WEB/Entrega3/recogerDatosUserE3.php";
         String result = "";
         Data resultados = null;
         HttpURLConnection urlConnection = null;
@@ -45,7 +46,6 @@ public class ConexionRegistro extends Worker {
             urlConnection.setDoOutput(true);
             JSONObject parametrosJSON = new JSONObject();
             parametrosJSON.put("username", username);
-            parametrosJSON.put("password",password);
             urlConnection.setRequestProperty("Content-Type","application/json");
             PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
             out.print(parametrosJSON.toJSONString());
@@ -62,15 +62,28 @@ public class ConexionRegistro extends Worker {
                 }
                 inputStream.close();
 
+                JSONParser parser = new JSONParser();
+                JSONObject json = (JSONObject) parser.parse(result);
+
+                String userDB = (String) json.get("username");
+                String nombre = (String) json.get("nombre");
+                String cumple = (String) json.get("cumple");
+
+                String[] c = cumple.split("-");
+                cumple = c[2] + " / " + c[1] + " / " + c[0];
+
                 resultados = new Data.Builder()
-                        .putString("resultado", result)
+                        .putString("username", userDB)
+                        .putString("nombre", nombre)
+                        .putString("cumple", cumple)
                         .build();
 
             }
 
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-        return Result.success(resultados);
+        return ListenableWorker.Result.success(resultados);
     }
 }
+

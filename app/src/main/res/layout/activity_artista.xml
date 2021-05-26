@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityArtista">
+    tools:context=".PantallaPrincipal.ActivityArtista">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -29,8 +29,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labarrainfoartitsta"
-        app:layout_constraintVertical_bias="0.056"
-        app:srcCompat="@drawable/niallhoran" />
+        app:layout_constraintVertical_bias="0.056"/>
 
     <TextView
         android:id="@+id/txtNombreArtista1"
@@ -45,7 +44,7 @@
         android:id="@+id/txtNacimientoArtista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_alternates_bold"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Nacimiento"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/txtNombreArtista1"
@@ -76,7 +75,7 @@
         android:id="@+id/txtNombreArtista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_alternates_bold"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Nombre"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,6 +83,6 @@
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewArtista"
-        app:layout_constraintVertical_bias="0.120000005" />
+        app:layout_constraintVertical_bias="0.118" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

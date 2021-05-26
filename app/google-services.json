@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "231049825937",
+    "project_id": "das-entrega2-49014",
+    "storage_bucket": "das-entrega2-49014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231049825937:android:9ee889d1ef7b449f9af930",
+        "android_client_info": {
+          "package_name": "com.example.dontstopthemusic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231049825937-j12cq6gmtendj909k6aaacvb0c78n1jj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRyjKSCAaY2RyuKhCvEIgMR580p_GeTZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231049825937-j12cq6gmtendj909k6aaacvb0c78n1jj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -28,8 +28,7 @@
         app:layout_constraintHorizontal_bias="0.264"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labarrainfoartitsta"
-        app:layout_constraintVertical_bias="0.337"
-        app:srcCompat="@drawable/niallhoran" />
+        app:layout_constraintVertical_bias="0.337" />
 
     <TextView
         android:id="@+id/txtNombreArtista1"
@@ -44,7 +43,7 @@
         android:id="@+id/txtNacimientoArtista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_alternates_bold"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Nacimiento"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/txtNombreArtista1"
@@ -75,7 +74,7 @@
         android:id="@+id/txtNombreArtista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_alternates_bold"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Nombre"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

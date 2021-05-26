@@ -23,30 +23,34 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="235dp"
-        android:layout_height="324dp"
+        android:layout_width="302dp"
+        android:layout_height="299dp"
+        android:contentDescription="TODO"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.159"
+        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labarraMain"
-        app:layout_constraintVertical_bias="0.282" />
+        app:layout_constraintVertical_bias="0.125"
+        tools:srcCompat="@drawable/logo" />
 
     <Button
         android:id="@+id/btnEntrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:backgroundTint="#FFC59E"
         android:fontFamily="@font/montserrat_bold"
-        android:text="ENTRAR"
+        android:text="@string/iniciar_sesi_n"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnRegistro"
-        app:layout_constraintStart_toStartOf="@+id/btnRegistro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/labarraMain"
-        app:layout_constraintVertical_bias="0.311" />
+        app:layout_constraintVertical_bias="0.164" />
 
     <Button
         android:id="@+id/btnRegistro"
@@ -54,14 +58,13 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#FFC59E"
         android:fontFamily="@font/montserrat_bold"
-        android:text="REGISTRARME"
+        android:text="@string/registrarme"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/btnEntrar"
+        app:layout_constraintStart_toStartOf="@+id/btnEntrar"
         app:layout_constraintTop_toBottomOf="@+id/btnEntrar"
-        app:layout_constraintVertical_bias="0.242" />
+        app:layout_constraintVertical_bias="0.309" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

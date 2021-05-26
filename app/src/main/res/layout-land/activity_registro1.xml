@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login_Registro.Registro1Activity">
+    android:background="@drawable/fondo"
+    tools:context=".Login_Registro.RegistroFotoActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/labarraRegistro1"
@@ -56,8 +57,7 @@
         app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labarraRegistro1"
-        app:layout_constraintVertical_bias="0.354"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.354" />
 
     <TextView
         android:id="@+id/txtRegistro1Titulo"

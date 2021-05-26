@@ -8,14 +8,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/elrecyclerview"
-        android:layout_width="218dp"
-        android:layout_height="277dp"
+        android:layout_width="397dp"
+        android:layout_height="264dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTituloPrincipal"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintVertical_bias="0.289" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/labarraPrincipal"
@@ -40,8 +40,8 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labarraPrincipal"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.067" />
 </androidx.constraintlayout.widget.ConstraintLayout>

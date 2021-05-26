@@ -5,21 +5,43 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
+import com.example.dontstopthemusic.ConexionesBD.ConexionInfoArtista;
+import com.example.dontstopthemusic.ConexionesBD.ConexionRegistro;
 import com.example.dontstopthemusic.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class ActivityArtista extends AppCompatActivity {
 
-    String idArtista;
     // Actividad para mostrar la información de cada artista
+
+    String idArtista;
+    TextView txtNombre;
+    TextView txtFechaNac;
+    TextView txtLugarNac;
+    ImageView imagen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,36 +59,17 @@ public class ActivityArtista extends AppCompatActivity {
         String nacimiento = "";
         String lugar = "";
 
-        if (idArtista.equals("1")) {
-            nombre = "Niall Horan";
-            nacimiento = "13/09/1993";
-            lugar = "Irlanda";
-        }
-        if (idArtista.equals("2")) {
-            nombre = "Shawn Mendes";
-            nacimiento = "17/07/1998";
-            lugar = "Canada";
-        }
-        if (idArtista.equals("3")) {
-            nombre = "Selena Gomez";
-            nacimiento = "17/07/1992";
-            lugar = "Texas";
-        }
+        cargarInfoArtista();
 
-
-        TextView txtNombre = findViewById(R.id.txtNombreArtista1);
+        txtNombre = findViewById(R.id.txtNombreArtista1);
         txtNombre.setText(nombre);
-        TextView txtFechaNac = findViewById(R.id.txtNacimientoArtista1);
+        txtFechaNac = findViewById(R.id.txtNacimientoArtista1);
         txtFechaNac.setText(nacimiento);
-        TextView txtLugarNac = findViewById(R.id.txtNacimientoArtistaLugar);
+        txtLugarNac = findViewById(R.id.txtNacimientoArtistaLugar);
         txtLugarNac.setText(lugar);
 
-        ImageView imagen = findViewById(R.id.imageViewArtista);
-        if (idArtista.equals("1")) imagen.setImageResource(R.drawable.niallhoran);
-        if (idArtista.equals("2")) imagen.setImageResource(R.drawable.shawnmendes);
-        if (idArtista.equals("3")) imagen.setImageResource(R.drawable.selenagomez);
-
-
+        imagen = findViewById(R.id.imageViewArtista);
+        cargarFoto();
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         // NOTIFICACIONES LOCALES
@@ -75,11 +78,11 @@ public class ActivityArtista extends AppCompatActivity {
         elBuilder.setSmallIcon(R.drawable.logo).setContentTitle("¿Por qué no revisas...")
                 .setVibrate(new long[] {0, 500})
                 .setAutoCancel(true);
-        if (idArtista.equals("1")) elBuilder.setContentText("Heartbreak Weather de Niall Horan?");
+        if (idArtista.equals("0")) elBuilder.setContentText("Heartbreak Weather de Niall Horan?");
+        if (idArtista.equals("1")) elBuilder.setContentText("Revelación de Selena Gómez?");
         if (idArtista.equals("2")) elBuilder.setContentText("Wonder de Shawn Mendes?");
-        if (idArtista.equals("3")) elBuilder.setContentText("Revelación de Selena Gómez?");
-        if (idArtista.equals("4")) elBuilder.setContentText("Don't Forget de Demi Lovato?");
-        if (idArtista.equals("5")) elBuilder.setContentText("Therefore I Am de Billie Eilish?");
+        if (idArtista.equals("3")) elBuilder.setContentText("Don't Forget de Demi Lovato?");
+        if (idArtista.equals("4")) elBuilder.setContentText("Therefore I Am de Billie Eilish?");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel elCanal = new NotificationChannel("Canal1", "CanalMain",
@@ -92,6 +95,61 @@ public class ActivityArtista extends AppCompatActivity {
 
         elManager.notify(1, elBuilder.build());
 
+    }
+
+    private void cargarFoto() {
+
+        //Instancia de FireBase
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Crear una storage reference de nuestra app
+        StorageReference storageRef = storage.getReference();
+        // Crear una referencia a "fotoUser.jpg" siendo User el nombre de usuario
+        String ref = "FotosArtistas/artista_" + idArtista + ".jpg";
+        StorageReference fotoRef = storageRef.child(ref);
+
+        final long ONE_MEGABYBTE = 1024 * 1024;
+        fotoRef.getBytes(ONE_MEGABYBTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                //Se ha devuelto la foto
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imagen.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Ha ocurrido un error
+                int tiempo= Toast.LENGTH_SHORT;
+                String texto = "No se ha podido cargar la foto del artista";
+                Toast aviso = Toast.makeText(getApplicationContext(), texto, tiempo);
+                aviso.setGravity(Gravity.BOTTOM| Gravity.CENTER, 0, 0);
+                aviso.show();
+            }
+        });
+    }
+
+    private void cargarInfoArtista() {
+
+        Data datos = new Data.Builder()
+                .putString("idArtista", idArtista)
+                .build();
+
+        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionInfoArtista.class)
+                .setInputData(datos).build();
+
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(WorkInfo workInfo) {
+                        if (workInfo != null && workInfo.getState().isFinished()) {
+                            // -> Asignamos los valores a los EditText
+                            txtNombre.setText(workInfo.getOutputData().getString("nombre"));
+                            txtLugarNac.setText(workInfo.getOutputData().getString("lugar"));
+                            txtFechaNac.setText(workInfo.getOutputData().getString("fecha"));
+                        }
+                    }
+                });
+        WorkManager.getInstance(this).enqueue(otwr);
     }
 
 

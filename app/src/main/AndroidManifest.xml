@@ -3,10 +3,16 @@
     package="com.example.dontstopthemusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera2.full" android:required="true"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-feature
+        android:name="android.hardware.camera2.full"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
 
     <application
         android:allowBackup="true"
@@ -14,11 +20,27 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Login_Registro.Registro1Activity"></activity>
-        <activity android:name=".Login_Registro.RegistroActivity" />
-        <activity android:name=".PantallaPrincipal.PantallaPrincipalActivity" />
-        <activity android:name=".Login_Registro.LoginActivity" />
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".PantallaPrincipal.ActivityPerfil"></activity>
+        <activity
+            android:name=".Login_Registro.RegistroFotoActivity"
+            android:parentActivityName=".Login_Registro.RegistroActivity" />
+        <activity
+            android:name=".Login_Registro.RegistroActivity"
+            android:parentActivityName=".Main.MainActivity" />
+        <activity android:name=".PantallaPrincipal.PantallaPrincipalActivity" >
+
+        </activity>
+        <activity
+            android:name=".Login_Registro.LoginActivity"
+            android:parentActivityName=".Main.MainActivity" >
+            <intent-filter>
+                <action android:name="AVISO" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".PantallaPrincipal.ActivityArtista" />
         <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +48,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".FCM.ServicioFirebase"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

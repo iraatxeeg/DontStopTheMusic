@@ -3,13 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/opcionAtrás"
-        android:title="Atrás"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/opcionGuardar"
-        android:title="Guardar"
         android:icon="@android:drawable/ic_menu_save"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="ifRoom|withText"
+        android:title="Guardar" />
 
 </menu>

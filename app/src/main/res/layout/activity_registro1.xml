@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login_Registro.Registro1Activity">
+    android:background="@drawable/fondo"
+    tools:context=".Login_Registro.RegistroFotoActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/labarraRegistro1"
@@ -29,10 +30,10 @@
         android:text="Seleccionar imagen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fotoPerfilRegistro"
-        app:layout_constraintVertical_bias="0.189" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
         android:id="@+id/btnSacar"
@@ -50,15 +51,14 @@
 
     <ImageView
         android:id="@+id/fotoPerfilRegistro"
-        android:layout_width="269dp"
-        android:layout_height="358dp"
+        android:layout_width="296dp"
+        android:layout_height="297dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labarraRegistro1"
-        app:layout_constraintVertical_bias="0.365"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.248" />
 
     <TextView
         android:id="@+id/txtRegistro1Titulo"
@@ -71,6 +71,7 @@
         app:layout_constraintBottom_toTopOf="@+id/fotoPerfilRegistro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labarraRegistro1" />
+        app:layout_constraintTop_toBottomOf="@+id/labarraRegistro1"
+        app:layout_constraintVertical_bias="0.727" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

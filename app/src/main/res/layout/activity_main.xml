@@ -31,7 +31,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labarraMain"
         app:layout_constraintVertical_bias="0.195"
-        tools:srcCompat="@drawable/logo" />
+        tools:srcCompat="@drawable/logo"
+        android:contentDescription="TODO" />
 
     <Button
         android:id="@+id/btnEntrar"
@@ -39,7 +40,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#FFC59E"
         android:fontFamily="@font/montserrat_bold"
-        android:text="ENTRAR"
+        android:text="@string/iniciar_sesi_n"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +56,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#FFC59E"
         android:fontFamily="@font/montserrat_bold"
-        android:text="REGISTRARME"
+        android:text="@string/registrarme"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
